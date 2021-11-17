@@ -1,0 +1,123 @@
+﻿@model IEnumerable<VegetableCrud.Models.Vegetable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Vegetables</h2>
+
+<div class="row pb-3">
+    <div class="col-md-6">
+        <form method="get" action="@Url.Action("Index")">
+            <input name="Search" type="search" placeholder="Search" value="@ViewBag.Request.Search" />
+            <button class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <div class="col-md-6 text-end">
+        @Html.ActionLink("Create New", "Create", null,
+        new { @class = "btn btn-primary" })
+        <button class="btn btn-primary">Print</button>
+        <button class="btn btn-primary">Export to Excel</button>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Name", "Index"
+                 , new VegetableCrud.Models.RequestModel
+                 {
+                     Search = ViewBag.Request.Search,
+                     OrderBy = "name",
+                     IsDescending = (ViewBag.Request.OrderBy == "name"
+                                     &&
+                                     ViewBag.Request.IsDescending == false) ? true : false
+                 }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Type", "Index"
+                 , new VegetableCrud.Models.RequestModel
+                 {
+                     Search = ViewBag.Request.Search,
+                     OrderBy = "type",
+                     IsDescending = (ViewBag.Request.OrderBy == "type"
+                                     &&
+                                     ViewBag.Request.IsDescending == false) ? true : false
+                 }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Price Per Ton", "Index"
+                , new VegetableCrud.Models.RequestModel
+                {
+                    Search = ViewBag.Request.Search,
+                    OrderBy = "priceperton",
+                    IsDescending = (ViewBag.Request.OrderBy == "priceperton"
+                                    &&
+                                    ViewBag.Request.IsDescending == false) ? true : false
+                }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Farmer Name", "Index"
+                , new VegetableCrud.Models.RequestModel
+                {
+                    Search = ViewBag.Request.Search,
+                    OrderBy = "farmername",
+                    IsDescending = (ViewBag.Request.OrderBy == "farmername"
+                                    &&
+                                    ViewBag.Request.IsDescending == false) ? true : false
+                }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Production State", "Index"
+                 , new VegetableCrud.Models.RequestModel
+                 {
+                     Search = ViewBag.Request.Search,
+                     OrderBy = "productionstate",
+                     IsDescending = (ViewBag.Request.OrderBy == "productionstate"
+                                     &&
+                                     ViewBag.Request.IsDescending == false) ? true : false
+                 }, null)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PricePerTon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FarmerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductionState)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="row">
+    <div class="col-md-9">
+        <a href="">&laquo; First</a>
+        <a href="">&lt; Previous</a>
+        Showing 1 out of 5 pages
+        <a href="">&gt; Next</a>
+        <a href="">&raquo; Last</a>
+
+        [Total 5000 records]
+    </div>
+    <div class="col text-end">
+        Page Size: 20 30 50 All
+    </div>
+</div>
